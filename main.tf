@@ -1,3 +1,13 @@
+terraform {
+  required_version = ">= 0.13"
+  required_providers {
+    datadog = {
+      source  = "datadog/datadog"
+      version = ">= 2.25.0"
+    }
+  }
+}
+
 resource "datadog_monitor" "app_services_http_error_5xx_ratio" {
   name  = "[app_services service][${var.asset_lbnref}] HTTP 5xx rate over threshold"
   type  = "query alert"
@@ -43,7 +53,7 @@ resource "datadog_monitor" "app_services_http_error_5xx_ratio" {
       "customer_name:${var.customer_name}",
       "customer_id:${var.customer_id}",
       "team_in_charge:${var.team_in_charge}",
-      "type:${var.type_app_services_http_error_5xx_ratio}",
+      "type:${var.monitor_type != "" ? var.monitor_type : var.type_app_services_http_error_5xx_ratio}",
       "irp:${var.irp_app_services_http_error_5xx_ratio}",
     ],
     var.extra_tags_app_services_http_error_5xx_ratio,
@@ -96,7 +106,7 @@ resource "datadog_monitor" "app_services_latency" {
       "customer_name:${var.customer_name}",
       "customer_id:${var.customer_id}",
       "team_in_charge:${var.team_in_charge}",
-      "type:${var.type_app_services_latency}",
+      "type:${var.monitor_type != "" ? var.monitor_type : var.type_app_services_latency}",
       "irp:${var.irp_app_services_latency}",
     ],
     var.extra_tags_app_services_latency,
@@ -149,7 +159,7 @@ resource "datadog_monitor" "app_services_status" {
       "customer_name:${var.customer_name}",
       "customer_id:${var.customer_id}",
       "team_in_charge:${var.team_in_charge}",
-      "type:${var.type_app_services_status}",
+      "type:${var.monitor_type != "" ? var.monitor_type : var.type_app_services_status}",
       "irp:${var.irp_app_services_status}",
     ],
     var.extra_tags_app_services_status,

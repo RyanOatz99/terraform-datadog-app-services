@@ -15,7 +15,7 @@
 
 ```hcl
 module "datadog_app_services" {
-  source        = "linkbynet/sapp-services/datadog"
+  source        = "linkbynet/app-services/datadog"
   customer_name = "mycustomer"
   customer_id   = 1234
   asset_lbnref  = 1234
